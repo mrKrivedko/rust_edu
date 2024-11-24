@@ -1,3 +1,24 @@
+use std::fmt::Result;
+use std::io::Result as IoResult;
+
+use std::cmp::Ordering;
+use std::io;
+
+// можно написать так
+// use std::{cmp::Ordering, io};
+
+use std::io;
+use std::io::Write;
+
+// можно написать так
+// use std::io::{self, Write};
+
+use std::collections::*;  // оператор * подключает всё из модуля в область видимости
+
+
+
+
+
 mod front_of_house {
     pub mod hosting {
         pub fn add_to_waitlist() {}
@@ -44,7 +65,7 @@ mod back_of_house {
     fn cook_order() {}
 }
 
-use crate::front_of_house::hosting;
+pub use crate::front_of_house::hosting;  // теперь для внешних модулей можно использовать путь restaurant::hosting::add_to_waitlist
 
 pub fn eat_at_restaurant() {
     // Absolute path
