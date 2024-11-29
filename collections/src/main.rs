@@ -2,6 +2,7 @@ use std::vec;
 
 use collections::vectors;
 use collections::strings;
+use collections::hashmap;
 
 fn main() {
     {
@@ -88,4 +89,53 @@ fn main() {
         }
     }
 
+    {
+        let mut hashmapa = hashmap::get_new_hashmap();
+
+        hashmapa.insert(String::from("Sinie"), -5);
+        hashmapa.insert(String::from("Krasnie"), 55);
+
+        let team_name = String::from("Sinie");
+        let score = hashmapa.get(&team_name).copied().unwrap_or(0);
+        println!("{score}");
+        let score = hashmapa.get("hhh").copied().unwrap_or(-999);
+        println!("{score}");
+        
+        for (key, value) in &hashmapa {  // пкчатает содержимое в произвольном порядке
+            println!("{key}: {value}");
+        }
+        println!("{score}");
+
+        let mut hashmapa2 = hashmap::get_new_hashmap();
+
+        let field = String::from("field");
+        let value = 5;
+
+        hashmapa2.insert(field, value);
+        hashmapa2.insert(String::from("1"), value);
+        
+        println!("{:?}", hashmapa2);
+        // println!("{}", field);
+        println!("{}", value);
+
+        // перезапись значения если ключ совпадает
+        hashmapa2.insert(String::from("1"), 7);
+        println!("{:?}", hashmapa2);
+        
+        // вставка значения только если ключа нет
+        hashmapa2.entry(String::from("field")).or_insert(10);
+        hashmapa2.entry(String::from("new")).or_insert(9);
+        println!("{:?}", hashmapa2);
+
+        use std::collections::HashMap;
+
+        let text = "hello fucking fucking word";
+
+        let mut map = HashMap::new();
+        for word in text.split_whitespace() {
+            let count = map.entry(word).or_insert(0);
+            *count += 1;
+        }
+        println!("{map:?}");
+    }
 }
